@@ -50,7 +50,6 @@ function plugin_mod_install()
 function plugin_mod_uninstall()
 {
     $brandManager = new BrandManager();
-//    $brandManager->changeTitle("i-Vertix");
     $brandManager->uninstall();
     return true;
 }
@@ -61,7 +60,7 @@ function plugin_mod_activate()
     $currentTitle = BrandManager::getCurrentTitle();
     if ($currentTitle === "GLPI") {
         // Only overwrite if still the GLPI default (never customized)
-        $brandManager->changeTitle("i-Vertix");
+        $brandManager->changeTitle("ForgeRGX");
     }
     foreach (array_keys(BrandManager::getImageResources()) as $resourceName) {
         $brandManager->applyResource($resourceName);
@@ -72,7 +71,6 @@ function plugin_mod_activate()
 function plugin_mod_deactivate()
 {
     $brandManager = new BrandManager();
-//    $brandManager->changeTitle("i-Vertix");
     foreach (array_keys(BrandManager::getImageResources()) as $resourceName) {
         $brandManager->restoreResource($resourceName);
     }

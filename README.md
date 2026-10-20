@@ -1,96 +1,52 @@
-[<img src="readme/i-vertix.png">](https://i-vertix.com)
+# GLPI Custom Branding
 
-# UI Branding GLPI Plugin
+A community-maintained fork of [i-Vertix/glpi-modifications](https://github.com/i-Vertix/glpi-modifications), a GLPI plugin for customizing branding elements such as logos, the browser tab title, and the login-page background.
 
-This plugin is used to customize brand-related images of your GLPI instance.
+This fork is maintained by [ForgeRGX](https://github.com/ForgeRGX) in the repository [ForgeRGX/glpi-custombranding](https://github.com/ForgeRGX/glpi-custombranding).
 
-## 📋 Functionalities
+## Features
 
-- Customization of overall used brand logos (three different logo sizes)
-- Customization of the page title (shown in tab)
-- Add a background image to the login page
+- Customize the branding logos used by GLPI.
+- Customize the page title shown in the browser tab.
+- Add a background image to the login page.
 
-## 📌 Information
+## Compatibility
 
-This plugin got restructured completely to match GLPI 11 and (hopefully) its successors.
-The plugin initially emerged from
-[https://github.com/stdonato/glpi-modifications](https://github.com/stdonato/glpi-modifications)
-as the original author did not continue to support the original plugin.
-Since the plugin was forked from the original one, all of its code was rewritten and aligned to new GLPI guidelines.
+- Intended targets: GLPI 11.x and GLPI 12.x.
+- PHP requirements depend on the GLPI version in use. Check the official [GLPI requirements](https://glpi-install.readthedocs.io/en/latest/prerequisites.html) before installing.
+- The plugin does not use GLPI's external REST API for its core branding functionality. Migrating to the GLPI High-Level API v3 is therefore not, by itself, required for this plugin.
+- Compatibility declarations in the plugin metadata are not proof of runtime compatibility. Test installation, activation, branding changes, login-page background delivery, deactivation, and uninstall/backup restoration on the exact GLPI and PHP versions you run.
 
-This plugin and its maintainers are not connected to the GLPI project.
+> **Status:** GLPI 12 compatibility is a target and requires validation against a real GLPI 12 instance. Do not treat a successful PHP syntax check or a version declaration as a complete integration test.
 
-## 📤 Migration from GLPI 10.x
+## Installation
 
-Since the plugin is very lightweight and does not really do much (no database tables ecc.), we decided to **not have** a
-"real" migration (current custom images will be lost).
-If you want to reuse your customized images, please create a backup before installing
-the new version into the GLPI plugins folder. The images are located in `/var/www/html/glpi/plugins/mod/resources`.
-Additionally, please **remove the current backup directory** located in `/var/lib/glpi/_plugins/mod/backups`.
+1. Back up your GLPI installation and any existing branding assets.
+2. Download or clone this repository.
+3. Copy the plugin directory into GLPI's `plugins` directory, or into `marketplace` if that is how you manage local plugins.
+4. The plugin directory must be named `mod` for GLPI to recognize it with the current plugin identifier.
+5. Ensure the web-server account has the permissions required to read the plugin files and write to the locations used by the plugin. Adapt ownership and paths to your operating system and installation; do not blindly copy example paths from another server.
+6. Sign in to GLPI with an account that can manage plugins, install the plugin, and activate it.
+7. Open the plugin's **Configure** page to manage branding settings.
 
-## 🔧 Installation
+Refer to the upstream project documentation for additional details and deployment-specific permission examples: [i-Vertix/glpi-modifications](https://github.com/i-Vertix/glpi-modifications).
 
-> [!IMPORTANT]
-> For installation procedures of older versions, please have a look at the readme in the version-corresponding branch!
+## Updating and uninstalling
 
-1. Download the latest version
-   from [https://github.com/i-Vertix/glpi-modifications/releases](https://github.com/i-Vertix/glpi-modifications/releases).
-2. Extract the archive into the GLPI `plugins` or `marketplace` folder, located in your glpi root directory (when updating, make sure to delete the current `mod` folder
-   first)
-3. The new folder inside of `plugins`/`marketplace` must be named `mod`
-4. The following additional permissions are **required** for the plugin to work properly (change `apache` to your webserver-related username):
+- Back up your GLPI installation and branding assets before updating.
+- Follow the plugin's documented deactivation/uninstallation procedure before deleting its files, so that any backed-up original assets can be restored where supported.
+- Verify the restoration behavior in a test environment before using it on a production instance.
 
-   In case you installed in `/plugins`:
-   
-   ```shell
-   chown -R apache: /var/www/html/glpi/public/pics
-   chown -R apache: /var/www/html/glpi/plugins/mod/resources
-   find /var/www/html/glpi/plugins/mod -type f -exec chmod 0644 {} \;
-   find /var/www/html/glpi/plugins/mod -type d -exec chmod 0755 {} \;
-   ```
-   
-   In case you installed in `marketplace`:
-   
-   ```shell
-   chown -R apache: /var/www/html/glpi/public/pics
-   chown -R apache: /var/www/html/glpi/marketplace/mod/resources
-   find /var/www/html/glpi/marketplace/mod -type f -exec chmod 0644 {} \;
-   find /var/www/html/glpi/marketplace/mod -type d -exec chmod 0755 {} \;
-   ```
+## Differences from upstream
 
-   All other required file permissions should already be given by a correct glpi installation (such as permissions in /var/lib ecc).
-   
-   In case you are using SELinux, you must verify that your apache/webserver user has the permission to `chmod` his own files (necessary to uninstall the plugin correctly).
-   With this command you can disable SELinux for apache/webserver-related stuff (to verify):
+This fork's goal is to maintain the plugin for GLPI 11 and investigate/adapt compatibility with GLPI 12. Changes should be documented in commits and tested against the supported GLPI versions. Until the GLPI 12 runtime tests are complete, compatibility with every GLPI 12 minor release is not guaranteed.
 
-   ```shell
-   setsebool -P httpd_unified 1
-   ```
-   
-5. In case you migrated from GLPI 10 and created a backup of your customized images you can now move the image backups
-   to `/var/www/html/glpi/plugins/mod/resources/images` (or `/var/www/html/glpi/marketplace/mod/resources/images`)
-6. Log into GLPI with a super-admin account and install the plugin
-7. After the installation is completed, activate the plugin
+## Upstream project and attribution
 
-## 👨‍🔧 Use the plugin
+- Upstream repository: [i-Vertix/glpi-modifications](https://github.com/i-Vertix/glpi-modifications)
+- Original project credits, notices, and license are retained in the repository.
+- This fork is independent and is not affiliated with or endorsed by the GLPI project or i-Vertix.
 
-Access the UI Branding page from the *Configure* button on the list item of your plugin page.
+## License
 
-![UI Branding](./readme/ui-branding.png)
-
-This is the only page this plugin brings into your GLPI instance.
-
-In case you want to revert to the original images, deactivate all entries under *Apply Modifications*.
-The rest is more or less self-explanatory.
-
-If you uninstall the plugin or disable it, all backups are restored automatically.
-
-## 🗿 Uninstall
-
-Please uninstall the plugin from the GLPI plugins page before removing any plugin files!
-Otherwise, all backups of original files are lost.
-We do not take any credit for any loss of original files!
-
-## 📢 Notice
-
-The plugin is and will not be published on the GLPI marketplace.
+This project retains the upstream license. See [`LICENSE`](LICENSE) for the full license text. The upstream project identifies its license as GNU GPL v3 or later; review the included license file before redistributing modified versions.

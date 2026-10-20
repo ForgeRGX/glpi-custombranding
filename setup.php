@@ -31,7 +31,10 @@
 use Glpi\Plugin\Hooks;
 use GlpiPlugin\Mod\BrandManager;
 
-const PLUGIN_MOD_VERSION = "11.0.5";
+const PLUGIN_MOD_VERSION = "12.0.0";
+
+const PLUGIN_MIN_VERSION = '11.0';
+const PLUGIN_MAX_VERSION = '13.0';
 
 function plugin_init_mod()
 {
@@ -54,15 +57,17 @@ function plugin_version_mod()
 {
     global $LANG;
 
-    return array('name' => 'UI Branding',
+    return array(
+        'name' => 'UI Branding',
         'version' => PLUGIN_MOD_VERSION,
-        'author' => '<a href="https://www.i-vertix.com/">i-Vertix</a>',
+        'author' => '<a href="https://github.com/ForgeRGX">ForgeRGX</a>',
         'license' => 'GPLv3',
-        'homepage' => 'https://github.com/i-Vertix/glpi-modifications',
+        'homepage' => 'https://github.com/ForgeRGX/glpi-custombranding',
         'requirements' => [
             'glpi' => [
-                'min' => "11.0",
-                'max' => "12.0"
+                'min' => PLUGIN_MIN_VERSION,
+                'max' => PLUGIN_MAX_VERSION
             ]
-        ]);
+        ]
+    );
 }
